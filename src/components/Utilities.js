@@ -11,27 +11,25 @@ export const RectColor = (type) => {
 };
 
 export const GetBackgroundByWeather = (type) => {
-  console.log(type);
   let bg;
   if (type === 'Clear') {
-    bg = require('../../assets/images/sea_sunnypng.png');
+    bg = require('../assets/images/sea_sunnypng.png');
   } else if (type === 'Clouds') {
-    bg = require('../../assets/images/sea_cloudy.png');
+    bg = require('../assets/images/sea_cloudy.png');
   } else if (type === 'Rain') {
-    bg = require('../../assets/images/sea_rainy.png');
+    bg = require('../assets/images/sea_rainy.png');
   }
   return bg;
 };
 
 export const GetWeatherIcon = (type) => {
-  console.log(type)
   let bg;
   if (type === 'Clear') {
-    bg = require('../../assets/Icons/clear.png');
+    bg = require('../assets/Icons/clear.png');
   } else if (type === 'Clouds') {
-    bg = require('../../assets/Icons/partlysunny.png');
+    bg = require('../assets/Icons/partlysunny.png');
   } else if (type === 'Rain') {
-    bg = require('../../assets/Icons/rain.png');
+    bg = require('../assets/Icons/rain.png');
   }
   return bg;
 };

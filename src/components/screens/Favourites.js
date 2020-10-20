@@ -12,15 +12,15 @@ import RNGooglePlaces from 'react-native-google-places';
 
 function Favourites(props) {
   const [location, setLocation] = useState([])
-  const [addLocation, setAddLocation] = useState(false)
-  const [pointers, setPointer] = useState([]);
   const [forecast, setForecast] = useState([]);
+  const [added, setAdded] = useState(true);
+  const [mouned, setMouned] = useState(false);
+  
   let list = []
   let forecastList = []
 
   const GetCurrentLocation = (latitude, longitude) => {
     Api.GetCurrentLocation(latitude, longitude).then((res) => {
-      console.log(res)
       forecastList.push(res)
       setForecast(forecastList);
     })
@@ -28,8 +28,62 @@ function Favourites(props) {
         console.log('Error:', error);
       });
   };
+  
+
+  const getStoredData = (key) => {
+    Api._retrieveData(key).then((res) => {
+      if (res !== null) {
+        // forecastList.push(JSON.parse(res))
+        setForecast(JSON.parse(res))
+      
+      }
+    })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  }
+
+  const addToStorage = (key, current) => {
+
+    let data = []
+    let newData = []
+    Api._retrieveData(key).then((res) => {
+      if (res === null) {
+        data.push(current)
+        Api._storeData(key, current)
+        setAdded(true)
+      } else {
+        newData = JSON.parse(res)
+        if (Array.isArray(newData)) {
+           newData.push(current)
+           Api._storeData(key, newData)
+        } else {
+          data.push(newData)
+          data.push(current)
+          Api._storeData(key, data)
+        }
+        setAdded(true)
+      }
+
+    })
+      .catch((error) => {
+        console.log('Error:', error);
+      })
+  }
 
   useEffect(() => {
+    
+    if (mouned) {
+      getStoredData("forecastDetails")
+      setMouned(true)
+    }
+
+  }, [getStoredData, mouned])
+
+  useEffect(() => {
+
+    getStoredData("forecastDetails")
+
     Api.requestPermissions()
 
     Geolocation.getCurrentPosition(
@@ -55,6 +109,7 @@ function Favourites(props) {
     }, ['placeID', 'location', 'name', 'address', 'types', 'openingHours', 'plusCode', 'rating', 'userRatingsTotal', 'viewport']
     )
       .then((place) => {
+        setAdded(false)
         list.push(place.location)
         GetCurrentLocation(place.location.latitude, place.location.longitude)
 
@@ -62,39 +117,45 @@ function Favourites(props) {
       .catch(error => console.log(error.message));
   }
 
-  const ForecastLists =
-    forecast.map((f) => {
-      return (
-        <View style={styles.centurionRow}>
-          <Text style={styles.centurion}>{f.name}</Text>
-          <Text style={styles.centurion1}>{Math.round(f.main.temp)}</Text>
-          <Text style={styles.o5}>o</Text>
-          <MaterialCommunityIconsIcon
-            name="plus"
-            style={styles.icon2}
-          ></MaterialCommunityIconsIcon>
-        </View>
-      )
-    })
 
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.rect2Stack} onPress={() => openSearchModal()}>
         <View style={styles.rect2}>
-          <IoniconsIcon name="md-add" style={styles.icon}></IoniconsIcon>
+          <IoniconsIcon name="md-search" style={styles.icon}></IoniconsIcon>
         </View>
-        <Text style={styles.addFavourite}>Add Favourite</Text>
+        <Text style={styles.addFavourite}>Search Location</Text>
       </TouchableOpacity>
-      {forecast.length > 0 &&
+      {forecast.length > 0 || forecast !== undefined ?
         <View style={styles.rect}>
           <ScrollView>
-            {ForecastLists}
+            {forecast?.map((f, index) => {
+      return (
+        <View style={styles.centurionRow}>
+          <Text style={styles.centurion}>{f.name}</Text>
+          <Text style={styles.centurion1}>{Math.round(f.main.temp)}</Text>
+          <Text style={styles.o5}>o</Text>
+          {!added ?
+            <MaterialCommunityIconsIcon
+              name="plus"
+              style={styles.icon2}
+              onPress={() => addToStorage("forecastDetails", f)}
+            ></MaterialCommunityIconsIcon> :
+            <MaterialCommunityIconsIcon
+              name="delete"
+              style={styles.icon2}
+              onPress={() => remove()}
+            ></MaterialCommunityIconsIcon>
+          }
+        </View>
+      )
+    })}
           </ScrollView>
-        </View>}
-      {forecast.length > 0  &&  <View style={styles.map}>
+        </View>: null}
+      {forecast.length > 0 && <View style={styles.map}>
         {location.latitude ? (
           <>
-            <MapDisplay {...props} pointers={pointers} location={location} />
+            <MapDisplay {...props} pointers={forecast} location={location} />
           </>
         ) : (
             <View style={[styles.Activitycontainer, styles.horizontal]}>
@@ -103,13 +164,13 @@ function Favourites(props) {
           )}
       </View>}
       <View>
-      {forecast.length < 1 && <Image
-        source={require('../../../assets/images/favourites.png')}
-        resizeMode="contain"
-        style={[styles.FavouritesImage, styles.horizontal]}
-      />}
-     </View>
-     </View>
+        {forecast.length < 1 && <Image
+          source={require('../../assets/images/favourites.png')}
+          resizeMode="contain"
+          style={[styles.FavouritesImage, styles.horizontal]}
+        />}
+      </View>
+    </View>
   );
 }
 
@@ -134,12 +195,13 @@ const styles = StyleSheet.create({
   centurion: {
     color: "#ffffff",
     fontSize: 20,
+    width: 140,
     marginTop: 9
   },
   centurion1: {
     color: "#ffffff",
     fontSize: 20,
-     marginLeft: 80,
+    marginLeft: 80,
     marginTop: 9
   },
   o5: {
@@ -218,11 +280,11 @@ const styles = StyleSheet.create({
     height: 24,
     width: 13,
     marginTop: 8,
-    marginLeft: 219
+    marginLeft: 200
   },
   addFavourite: {
     top: 7,
-    left: 238,
+    left: 220,
     position: "absolute",
     color: "rgba(38,121,220,1)",
     fontSize: 18
@@ -267,5 +329,4 @@ const styles = StyleSheet.create({
 });
 
 export default Favourites;
-
 

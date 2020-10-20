@@ -7,6 +7,7 @@ import * as Api from '../Api';
 import * as Utilities from '../Utilities';
 
 const WeatherScreen = (props) => {
+
   const [forecasts, setForcast] = useState([]);
 
   const GetWeather = (latitude, longitude) => {
@@ -19,17 +20,25 @@ const WeatherScreen = (props) => {
   };
 
   useEffect(() => {
-    Api.requestPermissions();
-    Geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        GetWeather(latitude, longitude);
-      },
-      (error) => {
-        alert(error.message);
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
-    );
+    if (props.route.params === undefined) {
+      console.log(props?.route)
+      Api.requestPermissions();
+
+      Geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          GetWeather(latitude, longitude);
+        },
+        (error) => {
+          alert(error.message);
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+      )
+    } else {
+     GetWeather(props.route.params.forecast.latitude, props.route.params.forecast.longitude);
+    }
+
+
   }, []);
 
   return (

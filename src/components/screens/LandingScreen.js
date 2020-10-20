@@ -7,7 +7,7 @@ function LandingScreen(props) {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../../../assets/images/logo.png')}
+        source={require('../../assets/images/logo.png')}
         resizeMode="contain"
         style={styles.image}
       />
@@ -16,7 +16,7 @@ function LandingScreen(props) {
           onPress={() => props.navigation.navigate('Weather')}
           style={styles.button}
         >
-          <Text style={styles.text}>Check Lastest My Weather</Text>
+          <Text style={styles.text}>My Lastest Weather</Text>
         </TouchableOpacity>
       </View>
       <View>
@@ -24,7 +24,7 @@ function LandingScreen(props) {
           onPress={() => props.navigation.navigate('Favourites')}
           style={styles.button}
         >
-          <Text style={styles.text}>Check My Favourites</Text>
+          <Text style={styles.text}>My Favourites</Text>
         </TouchableOpacity>
       </View>
     </View>
