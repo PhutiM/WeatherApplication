@@ -7,7 +7,6 @@ import * as Api from '../Api';
 import * as Utilities from '../Utilities';
 
 const WeatherScreen = (props) => {
-
   const [forecasts, setForcast] = useState([]);
 
   const GetWeather = (latitude, longitude) => {
@@ -21,7 +20,7 @@ const WeatherScreen = (props) => {
 
   useEffect(() => {
     if (props.route.params === undefined) {
-      console.log(props?.route)
+      console.log(props?.route);
       Api.requestPermissions();
 
       Geolocation.getCurrentPosition(
@@ -33,12 +32,10 @@ const WeatherScreen = (props) => {
           alert(error.message);
         },
         { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
-      )
+      );
     } else {
-     GetWeather(props.route.params.forecast.latitude, props.route.params.forecast.longitude);
+      GetWeather(props.route.params.forecast.latitude, props.route.params.forecast.longitude);
     }
-
-
   }, []);
 
   return (
@@ -51,7 +48,8 @@ const WeatherScreen = (props) => {
               source={Utilities.GetBackgroundByWeather(forecasts[0].weather[0].main)}
               resizeMode="contain"
               style={styles.image}
-              imageStyle={styles.image_imageStyle}>
+              imageStyle={styles.image_imageStyle}
+            >
               <View style={styles.loremIpsumStackStack}>
                 <View style={styles.loremIpsumStack}>
                   <Text style={styles.loremIpsum}>{Math.round(forecasts[0].main.temp)}</Text>
@@ -63,7 +61,8 @@ const WeatherScreen = (props) => {
             <View style={[styles.rect, {
               backgroundColor:
               Utilities.RectColor(forecasts[0].weather[0].main)
-            }]}>
+            }]}
+            >
               <View style={styles.loremIpsum3RowColumnRow}>
                 <View style={styles.loremIpsum3RowColumn}>
                   <View style={styles.loremIpsum3Row}>

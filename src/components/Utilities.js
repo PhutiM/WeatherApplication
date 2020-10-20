@@ -34,13 +34,13 @@ export const GetWeatherIcon = (type) => {
   return bg;
 };
 
-export const DayOfWeek = (datetime, val=true) => {
-  let day
+export const DayOfWeek = (datetime, val = true) => {
+  let day;
   if (val) {
     const [date, time] = datetime.split(' ');
-    day = new Date(date)
+    day = new Date(date);
   } else {
-    day = datetime
+    day = datetime;
   }
   const weekday = new Array(7);
   weekday[0] = 'Sunday';
@@ -63,9 +63,9 @@ export const BuildLastUpdated = (forcasts) => {
     if (list.length === 0) {
       forcasts.map((forecast) => {
         if (list.length === 0 && DayOfWeek(forecast.dt_txt) !== DayOfWeek(today, false)) {
-             return list.push(forecast)
+          return list.push(forecast);
         }
-      })
+      });
     }
     const [date, time] = forcasts[i].dt_txt.split(' ');
     if (!list[list.length - 1].dt_txt.includes(date) && DayOfWeek(forcasts[i].dt_txt) !== DayOfWeek(today, false)) {
