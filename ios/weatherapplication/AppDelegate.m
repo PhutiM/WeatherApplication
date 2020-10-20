@@ -18,6 +18,9 @@
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 
+@import GooglePlaces;
+@import GoogleMaps;
+
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
   SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];
@@ -40,6 +43,10 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+ 
+  [GMSPlacesClient provideAPIKey:@"AIzaSyCfVi44G8vNWXR8iPnCY6cSwVCb-BDAZYQ"];
+  [GMSServices provideAPIKey:@"AIzaSyCfVi44G8vNWXR8iPnCY6cSwVCb-BDAZYQ"];
+  
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
