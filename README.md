@@ -2,7 +2,7 @@
 Weather Application
 
 # IOS
-cd ios
+cd ios </br>
 run pod install
 cd ../
 yarn ios
