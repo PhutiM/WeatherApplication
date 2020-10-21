@@ -14,7 +14,7 @@ function Favourites(props) {
   const [location, setLocation] = useState([]);
   const [forecast, setForecast] = useState([]);
   const [added, setAdded] = useState(true);
-  const [mouned, setMouned] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState([]);
 
   const list = [];
   const forecastList = [];
@@ -22,7 +22,10 @@ function Favourites(props) {
   const GetCurrentLocation = (latitude, longitude) => {
     Api.GetCurrentLocation(latitude, longitude).then((res) => {
       forecastList.push(res);
-      setForecast(forecastList);
+      setCurrentLocation(forecastList)
+      
+      let A = forecastList.concat(forecast)
+      setForecast(A);
     })
       .catch((error) => {
         console.log('Error:', error);
@@ -32,7 +35,6 @@ function Favourites(props) {
   const getStoredData = (key) => {
     Api.RetrieveData(key).then((res) => {
       if (res !== null) {
-        // forecastList.push(JSON.parse(res))
         setForecast(JSON.parse(res));
       }
     })
@@ -68,19 +70,12 @@ function Favourites(props) {
   };
 
   useEffect(() => {
-    if (mouned) {
-      getStoredData('forecastDetails');
-      setMouned(true);
-    }
-  }, [getStoredData, mouned]);
-
-  useEffect(() => {
-    getStoredData('forecastDetails');
+    getStoredData('forecast');
 
     Api.requestPermissions();
 
-    Geolocation.getCurrentPosition(
-      (position) => {
+      Geolocation.getCurrentPosition(
+        (position) => {
         const { latitude, longitude } = position.coords;
         setLocation({
           latitude,
@@ -100,10 +95,11 @@ function Favourites(props) {
       // type: 'establishment'
     }, ['placeID', 'location', 'name', 'address', 'types', 'openingHours', 'plusCode', 'rating', 'userRatingsTotal', 'viewport'])
       .then((place) => {
-        setAdded(false);
-        list.push(place.location);
-        GetCurrentLocation(place.location.latitude, place.location.longitude);
-      })
+        setAdded(false)
+        list.push(place.location)
+        GetCurrentLocation(place.location.latitude, place.location.longitude)
+      
+      })  
       .catch((error) => console.log(error.message));
   };
 
@@ -115,32 +111,37 @@ function Favourites(props) {
         </View>
         <Text style={styles.addFavourite}>Search Location</Text>
       </TouchableOpacity>
-      {forecast.length > 0 || forecast !== undefined
+      { forecast.length > 0 || forecast !== undefined
         ? (
           <View style={styles.rect}>
-            <ScrollView>
+           {added ? <ScrollView>
               {forecast?.map((f, index) => (
-                <View style={styles.centurionRow}>
-                  <Text style={styles.centurion}>{f.name}</Text>
+                <View style={styles.locationRow}>
+                  <Text style={styles.location}>{f.name}</Text>
                   <Text style={styles.centurion1}>{Math.round(f.main.temp)}</Text>
                   <Text style={styles.o5}>o</Text>
-                  {!added
-                    ? (
-                      <MaterialCommunityIconsIcon
-                        name="plus"
-                        style={styles.icon2}
-                        onPress={() => addToStorage('forecastDetails', f)}
-                      />
-                    ) : (
-                      <MaterialCommunityIconsIcon
+                   <MaterialCommunityIconsIcon
                         name="delete"
                         style={styles.icon2}
                         onPress={() => remove()}
                       />
-                    )}
                 </View>
               ))}
             </ScrollView>
+              : 
+              <View>
+                {currentLocation?.map((c, i) => (
+                  <View style={styles.c}>
+                    <Text style={styles.location}>{c.name}</Text>
+                    <Text style={styles.centurion1}>{Math.round(c.main.temp)}</Text>
+                    <Text style={styles.o5}>o</Text>
+                    <MaterialCommunityIconsIcon
+                      name="plus"
+                      style={styles.icon2}
+                      onPress={() => addToStorage('forecast', c)}
+                    />
+                  </View>))}
+              </View>}
           </View>
         ) : null}
       {forecast.length > 0 && (
@@ -175,6 +176,8 @@ const styles = StyleSheet.create({
   },
   rect: {
     height: 80,
+    width: 350,
+    marginLeft: 20,
     alignSelf: 'center',
     borderWidth: 1,
     borderColor: '#000',
@@ -187,36 +190,36 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignSelf: 'center'
   },
-  centurion: {
+  location: {
     color: '#ffffff',
-    fontSize: 20,
-    width: 140,
+    fontSize: 14,
+    width: 100,
     marginTop: 9
   },
   centurion1: {
     color: '#ffffff',
-    fontSize: 20,
+    fontSize: 14,
     marginLeft: 80,
     marginTop: 9
   },
   o5: {
     color: '#ffffff',
-    fontSize: 16,
+    fontSize: 12,
     marginLeft: 1,
     marginTop: 7
   },
   icon2: {
     color: '#ffffff',
-    fontSize: 26,
+    fontSize: 20,
     height: 28,
     width: 26,
     marginLeft: 40,
     marginTop: 9
   },
-  centurionRow: {
+  locationRow: {
+    width: 350,
+    marginLeft: 10,
     flexDirection: 'row',
-    marginLeft: 15,
-    marginRight: 37
   },
   rect5: {
     width: 354,

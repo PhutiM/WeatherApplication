@@ -148,6 +148,13 @@ const styles = StyleSheet.create({
     color: 'rgba(255,255,255,1)',
     fontSize: 50
   },
+  location: {
+    top: 180,
+    left: 50,
+    position: 'absolute',
+    color: 'rgba(255,255,255,1)',
+    fontSize: 20
+  },
   o8: {
     color: 'rgba(255,255,255,1)',
     fontSize: 20,
