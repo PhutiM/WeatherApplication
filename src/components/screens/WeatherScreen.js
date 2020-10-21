@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
-  StyleSheet, View, Image, ActivityIndicator, Text, ImageBackground
+  StyleSheet, View, Image, ActivityIndicator,
+  Text, ImageBackground, Alert
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import * as Api from '../Api';
@@ -29,7 +30,7 @@ const WeatherScreen = (props) => {
           GetWeather(latitude, longitude);
         },
         (error) => {
-          alert(error.message);
+          Alert.alert(error.message);
         },
         { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
       );
@@ -88,7 +89,7 @@ const WeatherScreen = (props) => {
               </View>
               <View style={styles.rect2} />
               {forecasts.map((forecast, index) => (
-                <View key={index}>
+                <div key={index}>
                   <View style={styles.dayRow}>
                     <Text style={styles.day}>{Utilities.DayOfWeek(forecast.dt_txt)}</Text>
                     <Image
@@ -99,7 +100,7 @@ const WeatherScreen = (props) => {
                     <Text style={styles.loremIpsum2}>{Math.round(forecast.main.temp)}</Text>
                     <Text style={styles.o10}>o</Text>
                   </View>
-                </View>
+                </div>
               ))}
             </View>
           </View>

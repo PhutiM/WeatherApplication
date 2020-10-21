@@ -68,7 +68,8 @@ export const BuildLastUpdated = (forcasts) => {
       });
     }
     const [date, time] = forcasts[i].dt_txt.split(' ');
-    if (!list[list.length - 1].dt_txt.includes(date) && DayOfWeek(forcasts[i].dt_txt) !== DayOfWeek(today, false)) {
+    if (!list[list.length - 1].dt_txt.includes(date)
+    && DayOfWeek(forcasts[i].dt_txt) !== DayOfWeek(today, false)) {
       list.push(forcasts[i]);
     }
   }

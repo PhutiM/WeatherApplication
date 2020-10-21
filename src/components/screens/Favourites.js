@@ -3,7 +3,7 @@ import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommun
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 import Geolocation from 'react-native-geolocation-service';
 import {
-  TouchableOpacity, ScrollView, Image,
+  TouchableOpacity, ScrollView, Image, Alert,
   View, ActivityIndicator, StyleSheet, Text
 } from 'react-native';
 import RNGooglePlaces from 'react-native-google-places';
@@ -22,13 +22,13 @@ function Favourites(props) {
   const GetCurrentLocation = (latitude, longitude) => {
     Api.GetCurrentLocation(latitude, longitude).then((res) => {
       forecastList.push(res);
-      setCurrentLocation(forecastList)
-      
-      let A = forecastList.concat(forecast)
+      setCurrentLocation(forecastList);
+
+      const A = forecastList.concat(forecast);
       setForecast(A);
     })
       .catch((error) => {
-        console.log('Error:', error);
+        Alert.alert('Error:', error);
       });
   };
 
@@ -39,7 +39,7 @@ function Favourites(props) {
       }
     })
       .catch((error) => {
-        console.log('Error:', error);
+        Alert.alert('Error:', error);
       });
   };
 
@@ -65,7 +65,7 @@ function Favourites(props) {
       }
     })
       .catch((error) => {
-        console.log('Error:', error);
+        Alert.alert('Error:', error);
       });
   };
 
@@ -74,8 +74,8 @@ function Favourites(props) {
 
     Api.requestPermissions();
 
-      Geolocation.getCurrentPosition(
-        (position) => {
+    Geolocation.getCurrentPosition(
+      (position) => {
         const { latitude, longitude } = position.coords;
         setLocation({
           latitude,
@@ -83,7 +83,7 @@ function Favourites(props) {
         });
       },
       (error) => {
-        alert(error.message);
+        Alert.alert(error.message);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );
@@ -95,12 +95,15 @@ function Favourites(props) {
       // type: 'establishment'
     }, ['placeID', 'location', 'name', 'address', 'types', 'openingHours', 'plusCode', 'rating', 'userRatingsTotal', 'viewport'])
       .then((place) => {
-        setAdded(false)
-        list.push(place.location)
-        GetCurrentLocation(place.location.latitude, place.location.longitude)
-      
-      })  
-      .catch((error) => console.log(error.message));
+        setAdded(false);
+        list.push(place.location);
+        GetCurrentLocation(place.location.latitude, place.location.longitude);
+      })
+      .catch((error) => Alert.alert(error.message));
+  };
+
+  const remove = () => {
+    // remove from list
   };
 
   return (
@@ -114,34 +117,38 @@ function Favourites(props) {
       { forecast.length > 0 || forecast !== undefined
         ? (
           <View style={styles.rect}>
-           {added ? <ScrollView>
-              {forecast?.map((f, index) => (
-                <View style={styles.locationRow}>
-                  <Text style={styles.location}>{f.name}</Text>
-                  <Text style={styles.centurion1}>{Math.round(f.main.temp)}</Text>
-                  <Text style={styles.o5}>o</Text>
-                   <MaterialCommunityIconsIcon
-                        name="delete"
-                        style={styles.icon2}
-                        onPress={() => remove()}
-                      />
-                </View>
-              ))}
-            </ScrollView>
-              : 
-              <View>
-                {currentLocation?.map((c, i) => (
-                  <View style={styles.c}>
-                    <Text style={styles.location}>{c.name}</Text>
-                    <Text style={styles.centurion1}>{Math.round(c.main.temp)}</Text>
+            {added ? (
+              <ScrollView>
+                {forecast?.map((f, index) => (
+                  <View key={index} style={styles.locationRow}>
+                    <Text style={styles.location}>{f.name}</Text>
+                    <Text style={styles.centurion1}>{Math.round(f.main.temp)}</Text>
                     <Text style={styles.o5}>o</Text>
                     <MaterialCommunityIconsIcon
-                      name="plus"
+                      name="delete"
                       style={styles.icon2}
-                      onPress={() => addToStorage('forecast', c)}
+                      onPress={() => remove()}
                     />
-                  </View>))}
-              </View>}
+                  </View>
+                ))}
+              </ScrollView>
+            )
+              : (
+                <View>
+                  {currentLocation?.map((c, i) => (
+                    <View key={i} style={styles.c}>
+                      <Text style={styles.location}>{c.name}</Text>
+                      <Text style={styles.centurion1}>{Math.round(c.main.temp)}</Text>
+                      <Text style={styles.o5}>o</Text>
+                      <MaterialCommunityIconsIcon
+                        name="plus"
+                        style={styles.icon2}
+                        onPress={() => addToStorage('forecast', c)}
+                      />
+                    </View>
+                  ))}
+                </View>
+              )}
           </View>
         ) : null}
       {forecast.length > 0 && (
