@@ -53,7 +53,7 @@
     "verbose": true,
     "coverageThreshold": {
       "global": {
-        "statements": 30
+        "statements": 40
       }
     },
     "moduleNameMapper": {
