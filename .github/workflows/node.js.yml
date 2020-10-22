@@ -25,5 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn install
+    - run: cd android && ./gradlew
+    - run: cd ios && pod install 
     - run: yarn lint
     - run: yarn test
