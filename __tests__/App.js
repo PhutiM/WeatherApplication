@@ -5,6 +5,15 @@ import App from '../App';
 
 // Note: test renderer must be required after react-native.
 
+jest.mock('react-native-geolocation-service', () => {
+  return {
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    inFocusDisplaying: jest.fn()
+  }
+})
+
+
 it('renders correctly', () => {
   renderer.create(<App />);
 });

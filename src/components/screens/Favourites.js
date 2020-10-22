@@ -23,7 +23,6 @@ function Favourites(props) {
     Api.GetCurrentLocation(latitude, longitude).then((res) => {
       forecastList.push(res);
       setCurrentLocation(forecastList);
-
       const A = forecastList.concat(forecast);
       setForecast(A);
     })

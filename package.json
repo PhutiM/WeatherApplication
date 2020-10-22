@@ -49,6 +49,15 @@
     "preset": "react-native",
     "collectCoverage": true, 
     "verbose": true,
+    "coverageThreshold": {
+      "global": {
+        "statements": 50
+      }
+    },
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|sass)$": "<rootDir>/__mocks__/styleMock.js"
+    },
     "setupFiles": [
       "./node_modules/react-native-gesture-handler/jestSetup.js"
     ],
