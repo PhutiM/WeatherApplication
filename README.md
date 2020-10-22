@@ -26,7 +26,7 @@ My Favourites Screen</br>
 <img src="android4.jpeg" alt="android4" width="300"/></br>
 Location Search upon clicking search location </br>
 <img src="android5.jpeg" alt="android5" width="300"/></br>
-View/Add Location to Favourites </br>
+View/Add Location to Favourites. To add to favourites, click on the add icon </br>
 <img src="android6.jpeg" alt="android6" width="300"/></br>
 List of stored to Favourites in a ScrollView and Markers showing on Map </br>
 <img src="android7.jpeg" alt="android7" width="300"/></br>
