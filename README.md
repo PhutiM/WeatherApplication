@@ -13,7 +13,7 @@ yarn ios
 yarn install </br>
 yarn android
 
-![Landing Screen](android1.jpeg)
+![Landing Screen](android1.jpeg){height=20 width=20}!
 Upon Clicking My Latest Weather 
 ![Location Permissions Screen](android2.jpeg)
 ![Current Location forecast](android3.jpeg)
