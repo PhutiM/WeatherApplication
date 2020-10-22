@@ -48,7 +48,6 @@ export const StoreData = async (dataKey, data) => {
     );
     return true;
   } catch (error) {
-    // Error saving data
     return error;
   }
 };
@@ -58,7 +57,6 @@ export const RetrieveData = async (dataKey) => {
     const value = await AsyncStorage.getItem(dataKey);
     return value;
   } catch (error) {
-    // Error retrieving data
     return error;
   }
 };

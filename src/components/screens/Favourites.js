@@ -135,8 +135,11 @@ function Favourites(props) {
             )
               : (
                 <View>
+                  {currentLocation.length > 0
+                && (
+                <View>
                   {currentLocation?.map((c, i) => (
-                    <View key={i} style={styles.c}>
+                    <View key={i} style={styles.locationRow}>
                       <Text style={styles.location}>{c.name}</Text>
                       <Text style={styles.centurion1}>{Math.round(c.main.temp)}</Text>
                       <Text style={styles.o5}>o</Text>
@@ -147,6 +150,8 @@ function Favourites(props) {
                       />
                     </View>
                   ))}
+                </View>
+                ) }
                 </View>
               )}
           </View>

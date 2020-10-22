@@ -15,7 +15,7 @@ const WeatherScreen = (props) => {
       setForcast(Utilities.BuildLastUpdated(res.list));
     })
       .catch((error) => {
-        console.log('Error:', error);
+        Alert.alert('Error:', error);
       });
   };
 
@@ -89,7 +89,7 @@ const WeatherScreen = (props) => {
               </View>
               <View style={styles.rect2} />
               {forecasts.map((forecast, index) => (
-                <div key={index}>
+                <View key={index}>
                   <View style={styles.dayRow}>
                     <Text style={styles.day}>{Utilities.DayOfWeek(forecast.dt_txt)}</Text>
                     <Image
@@ -100,7 +100,7 @@ const WeatherScreen = (props) => {
                     <Text style={styles.loremIpsum2}>{Math.round(forecast.main.temp)}</Text>
                     <Text style={styles.o10}>o</Text>
                   </View>
-                </div>
+                </View>
               ))}
             </View>
           </View>
