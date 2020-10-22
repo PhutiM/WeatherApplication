@@ -1,12 +1,12 @@
-import 'react-native';
-import React from 'react';
 import {
   TouchableOpacity, Image,
   View, Text
 } from 'react-native';
+import React from 'react';
+
 import { shallow, configure } from 'enzyme';
-import LandingScreen from '../src/components/screens/LandingScreen';
 import Adapter from 'enzyme-adapter-react-16';
+import LandingScreen from '../src/components/screens/LandingScreen';
 // Note: test renderer must be required after react-native.
 
 jest.mock('react-native-geolocation-service', () => ({
@@ -14,7 +14,6 @@ jest.mock('react-native-geolocation-service', () => ({
   removeEventListener: jest.fn(),
   inFocusDisplaying: jest.fn()
 }));
-
 
 configure({ adapter: new Adapter() });
 
@@ -31,5 +30,5 @@ it('should render current state', () => {
 });
 
 const defaultProps = {
- 
-}
+
+};

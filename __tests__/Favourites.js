@@ -31,7 +31,7 @@ it('should render current state', () => {
 const defaultProps = {
   onRegionChangeComplete: jest.fn(),
   GetCurrentLocation: jest.fn(),
-  Geolocation: {getCurrentPosition: jest.fn()},
+  Geolocation: { getCurrentPosition: jest.fn() },
   getStoredData: jest.fn(),
   locations: {
     latitude: 23.987888,
