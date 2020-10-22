@@ -38,7 +38,6 @@ it('should render current state', () => {
   expect(wrapper.find(View).length).toBe(4);
   expect(wrapper.find(Text).length).toBe(1);
   expect(wrapper.find(Image).length).toBe(1);
-  expect(wrapper.find(ActivityIndicator).length).toBe(1);
   expect(wrapper.find(TouchableOpacity).length).toBe(1);
 });
 
