@@ -13,17 +13,19 @@ yarn ios
 yarn install </br>
 yarn android
 
-![Landing Screen](android1.jpeg){height=20 width=20}!
+Landing Screen
+<img src="android1.jpeg" alt="android1.jpeg" width="50"/>
 Upon Clicking My Latest Weather 
-![Location Permissions Screen](android2.jpeg)
-![Current Location forecast](android3.jpeg)
-Upon Clicking My Favourites
-![My Favourites Screen](android4.jpeg)
-Upon Clicking search location
-![Location Search](android5.jpeg)
-![View / Add Location](android6.jpeg)
-![View / Add Location](android7.jpeg)
-![View / Add Location](android8.jpeg)
+Location Permissions Screen
+<img src="android2.jpeg" alt="android2.jpeg" width="50"/>
+Current Location forecast
+<img src="android3.jpeg" alt="android3" width="50"/>
+My Favourites Screen
+<img src="android4.jpeg" alt="android4" width="50"/>
+<img src="android5.jpeg" alt="android5" width="50"/>
+<img src="android6.jpeg" alt="android6" width="50"/>
+<img src="android7.jpeg" alt="android7" width="50"/>
+<img src="android8.jpeg" alt="android8" width="50"/>
 
 
 
