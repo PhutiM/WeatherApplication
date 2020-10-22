@@ -1,8 +1,7 @@
 import 'react-native';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from '../App';
-
+import LandingScreen from '../src/components/screens/LandingScreen';
 // Note: test renderer must be required after react-native.
 
 jest.mock('react-native-geolocation-service', () => {
@@ -14,5 +13,5 @@ jest.mock('react-native-geolocation-service', () => {
 })
 
 it('renders correctly', () => {
-  renderer.create(<App />);
+  renderer.create(<LandingScreen />);
 });

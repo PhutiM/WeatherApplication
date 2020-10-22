@@ -61,7 +61,7 @@ export const RetrieveData = async (dataKey) => {
   }
 };
 
-export const RsemoveItem = async (dataKey) => {
+export const RemoveItem = async (dataKey) => {
   try {
     await AsyncStorage.getItem(dataKey);
     return true;

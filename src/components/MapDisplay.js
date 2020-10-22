@@ -5,8 +5,8 @@ import MapView, { Marker } from 'react-native-maps';
 const MapDisplay = (props) => {
   const { navigation, location, pointers } = props;
   const [region, setRegion] = useState({
-    latitude: location.latitude,
-    longitude: location.longitude,
+    latitude: location?.latitude,
+    longitude: location?.longitude,
     latitudeDelta: 0.90,
     longitudeDelta: 0.90
   });
