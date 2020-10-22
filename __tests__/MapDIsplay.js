@@ -19,16 +19,6 @@ function shallowSetup(props) {
   return shallow(<MapDisplay {...props} />);
 }
 
-function setup(props) {
-  const renderer = new ShallowRenderer();
-  renderer.render(<MapDisplay {...props} />);
-}
-
-it('renders', () => {
-  const wrapper = setup(defaultProps);
-  expect(wrapper).toMatchSnapshot();
-});
-
 it('should render current state', () => {
   const wrapper = shallowSetup(defaultProps);
   expect(wrapper.find(MapView).length).toBe(1);

@@ -35,8 +35,6 @@ function Favourites(props) {
     Api.RetrieveData(key).then((res) => {
       if (res !== null) {
         setForecast(JSON.parse(res));
-
-        console.log('Get Data', forecast);
       }
     })
       .catch((error) => {

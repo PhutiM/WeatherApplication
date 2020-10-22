@@ -3,7 +3,6 @@ import {
   View, Text
 } from 'react-native';
 import React from 'react';
-import ShallowRenderer from 'react-test-renderer/shallow';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Favourites from '../src/components/screens/Favourites';
@@ -21,16 +20,6 @@ function shallowSetup(props) {
   return shallow(<Favourites {...props} />);
 }
 
-function setup(props) {
-  const renderer = new ShallowRenderer();
-  renderer.render(<Favourites {...props} />);
-}
-
-it('renders', () => {
-  const wrapper = setup(defaultProps);
-  expect(wrapper).toMatchSnapshot();
-});
-
 it('should render current state', () => {
   const wrapper = shallowSetup(defaultProps);
   expect(wrapper.find(View).length).toBe(3);
@@ -41,9 +30,15 @@ it('should render current state', () => {
 
 const defaultProps = {
   onRegionChangeComplete: jest.fn(),
+  GetCurrentLocation: jest.fn(),
+  Geolocation: {getCurrentPosition: jest.fn()},
+  getStoredData: jest.fn(),
   locations: {
     latitude: 23.987888,
     longitude: -23.44343
+  },
+  Api: {
+    GetCurrentLocation: jest.fn(),
   },
   pointers: [{
     coord: {
