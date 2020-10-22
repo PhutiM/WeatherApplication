@@ -27,18 +27,22 @@ function Favourites(props) {
       setForecast(A);
     })
       .catch((error) => {
-        Alert.alert('Error:', error);
+        Alert.alert('Error:', error.message);
       });
   };
 
   const getStoredData = (key) => {
     Api.RetrieveData(key).then((res) => {
       if (res !== null) {
+
         setForecast(JSON.parse(res));
+
+        console.log("Get Data", forecast)
+
       }
     })
       .catch((error) => {
-        Alert.alert('Error:', error);
+        Alert.alert('Error:', error.message);
       });
   };
 
@@ -69,7 +73,8 @@ function Favourites(props) {
   };
 
   useEffect(() => {
-    getStoredData('forecast');
+
+    getStoredData('forecasts');
 
     Api.requestPermissions();
 
@@ -113,7 +118,7 @@ function Favourites(props) {
         </View>
         <Text style={styles.addFavourite}>Search Location</Text>
       </TouchableOpacity>
-      { forecast.length > 0 || forecast !== undefined
+      { forecast.length > 0 && forecast !== undefined
         ? (
           <View style={styles.rect}>
             {added ? (
@@ -131,11 +136,9 @@ function Favourites(props) {
                   </View>
                 ))}
               </ScrollView>
-            )
-              : (
+            ) : (
                 <View>
-                  {currentLocation.length > 0
-                && (
+                {currentLocation.length > 0  ? 
                 <View>
                   {currentLocation?.map((c, i) => (
                     <View key={i} style={styles.locationRow}>
@@ -145,17 +148,17 @@ function Favourites(props) {
                       <MaterialCommunityIconsIcon
                         name="plus"
                         style={styles.icon2}
-                        onPress={() => addToStorage('forecast', c)}
+                        onPress={() => addToStorage('forecasts', c)}
                       />
                     </View>
                   ))}
                 </View>
-                ) }
+                : null}
                 </View>
               )}
           </View>
         ) : null}
-      {forecast.length > 0 && (
+      {forecast.length > 0  && (
       <View style={styles.map}>
         {location.latitude ? (
           <>
@@ -188,7 +191,7 @@ const styles = StyleSheet.create({
   rect: {
     height: 80,
     width: 350,
-    marginLeft: 20,
+    marginLeft: 0,
     alignSelf: 'center',
     borderWidth: 1,
     borderColor: '#000',

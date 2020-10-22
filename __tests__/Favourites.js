@@ -1,10 +1,8 @@
 import {
   TouchableOpacity, Image,
-  View, ActivityIndicator, Text
+  View, Text
 } from 'react-native';
 import React from 'react';
-
-import MapView, { Marker } from 'react-native-maps';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
