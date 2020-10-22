@@ -34,11 +34,9 @@ function Favourites(props) {
   const getStoredData = (key) => {
     Api.RetrieveData(key).then((res) => {
       if (res !== null) {
-
         setForecast(JSON.parse(res));
 
-        console.log("Get Data", forecast)
-
+        console.log('Get Data', forecast);
       }
     })
       .catch((error) => {
@@ -73,7 +71,6 @@ function Favourites(props) {
   };
 
   useEffect(() => {
-
     getStoredData('forecasts');
 
     Api.requestPermissions();
@@ -137,28 +134,30 @@ function Favourites(props) {
                 ))}
               </ScrollView>
             ) : (
-                <View>
-                {currentLocation.length > 0  ? 
-                <View>
-                  {currentLocation?.map((c, i) => (
-                    <View key={i} style={styles.locationRow}>
-                      <Text style={styles.location}>{c.name}</Text>
-                      <Text style={styles.centurion1}>{Math.round(c.main.temp)}</Text>
-                      <Text style={styles.o5}>o</Text>
-                      <MaterialCommunityIconsIcon
-                        name="plus"
-                        style={styles.icon2}
-                        onPress={() => addToStorage('forecasts', c)}
-                      />
+              <View>
+                {currentLocation.length > 0
+                  ? (
+                    <View>
+                      {currentLocation?.map((c, i) => (
+                        <View key={i} style={styles.locationRow}>
+                          <Text style={styles.location}>{c.name}</Text>
+                          <Text style={styles.centurion1}>{Math.round(c.main.temp)}</Text>
+                          <Text style={styles.o5}>o</Text>
+                          <MaterialCommunityIconsIcon
+                            name="plus"
+                            style={styles.icon2}
+                            onPress={() => addToStorage('forecasts', c)}
+                          />
+                        </View>
+                      ))}
                     </View>
-                  ))}
-                </View>
-                : null}
-                </View>
-              )}
+                  )
+                  : null}
+              </View>
+            )}
           </View>
         ) : null}
-      {forecast.length > 0  && (
+      {forecast.length > 0 && (
       <View style={styles.map}>
         {location.latitude ? (
           <>
