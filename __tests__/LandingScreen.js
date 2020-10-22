@@ -3,11 +3,9 @@ import {
   View, Text
 } from 'react-native';
 import React from 'react';
-
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import LandingScreen from '../src/components/screens/LandingScreen';
-// Note: test renderer must be required after react-native.
 
 jest.mock('react-native-geolocation-service', () => ({
   addEventListener: jest.fn(),

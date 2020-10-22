@@ -1,11 +1,8 @@
 import { View, ActivityIndicator } from 'react-native';
 import React from 'react';
-
-import ShallowRenderer from 'react-test-renderer/shallow';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import WeatherScreen from '../src/components/screens/WeatherScreen';
-// Note: test renderer must be required after react-native.
 
 jest.mock('react-native-geolocation-service', () => ({
   addEventListener: jest.fn(),

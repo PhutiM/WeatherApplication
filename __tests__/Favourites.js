@@ -6,7 +6,6 @@ import React from 'react';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Favourites from '../src/components/screens/Favourites';
-// Note: test renderer must be required after react-native.
 
 jest.mock('react-native-geolocation-service', () => ({
   addEventListener: jest.fn(),
