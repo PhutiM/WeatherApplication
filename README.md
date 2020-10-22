@@ -13,3 +13,4 @@ yarn ios
 yarn install </br>
 yarn android
 
+![Sunny](sea_sunnypng.png)
