@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   StyleSheet, View, Image, ActivityIndicator,
-  Text, ImageBackground, Alert
+  Text, ImageBackground
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import * as Api from '../Api';
@@ -15,7 +15,7 @@ const WeatherScreen = (props) => {
       setForcast(Utilities.BuildLastUpdated(res.list));
     })
       .catch((error) => {
-        Alert.alert('Error:', error);
+        alert('Error:', error);
       });
   };
 
@@ -30,7 +30,7 @@ const WeatherScreen = (props) => {
           GetWeather(latitude, longitude);
         },
         (error) => {
-          Alert.alert(error.message);
+          alert(error.message);
         },
         { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
       );

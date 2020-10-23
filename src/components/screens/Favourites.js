@@ -3,7 +3,7 @@ import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommun
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 import Geolocation from 'react-native-geolocation-service';
 import {
-  TouchableOpacity, ScrollView, Image, Alert,
+  TouchableOpacity, ScrollView, Image,
   View, ActivityIndicator, StyleSheet, Text
 } from 'react-native';
 import RNGooglePlaces from 'react-native-google-places';
@@ -27,7 +27,7 @@ function Favourites(props) {
       setForecast(A);
     })
       .catch((error) => {
-        Alert.alert('Error:', error.message);
+        alert('Error:', error.message);
       });
   };
 
@@ -38,7 +38,7 @@ function Favourites(props) {
       }
     })
       .catch((error) => {
-        Alert.alert('Error:', error.message);
+        alert('Error:', error.message);
       });
   };
 
@@ -64,7 +64,7 @@ function Favourites(props) {
       }
     })
       .catch((error) => {
-        Alert.alert('Error:', error);
+        alert('Error:', error.message);
       });
   };
 
@@ -82,7 +82,7 @@ function Favourites(props) {
         });
       },
       (error) => {
-        Alert.alert(error.message);
+        alert(error.message);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );
@@ -98,7 +98,7 @@ function Favourites(props) {
         list.push(place.location);
         GetCurrentLocation(place.location.latitude, place.location.longitude);
       })
-      .catch((error) => Alert.alert(error.message));
+      .catch((error) => alert(error.message));
   };
 
   const remove = () => {

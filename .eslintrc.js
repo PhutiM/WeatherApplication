@@ -17,7 +17,8 @@ module.exports = {
       'array-callback-return': 'off',
       'no-unused-vars': 'off',
       'import/no-unresolved': 'off',
-      'consistent-return': 'off'
+      'consistent-return': 'off',
+      'no-undef': 'off'
     },
     'globals': {
       "fetch": false
