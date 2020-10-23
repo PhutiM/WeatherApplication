@@ -10,7 +10,7 @@ yarn ios
 
 
 # ANDROID
-on java version  11 - below
+on java version  11 - below </br>
 yarn install </br>
 yarn android
 
