@@ -10,11 +10,11 @@ yarn ios
 
 
 # ANDROID
-on java version  11 - below </br>
+ 
 yarn install </br>
 yarn android
 
-# ANDROID Screens
+# ANDROID Screens ran on java version 11
 
 Landing Screen</br>
 <img src="android1.jpeg" alt="android1.jpeg" width="300"/></br>
